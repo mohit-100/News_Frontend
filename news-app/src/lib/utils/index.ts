@@ -51,10 +51,17 @@ export function getCategoryColor(color?: string): string {
   return color || '#ef4444';
 }
 
-export function debounce<T extends (...args: unknown[]) => unknown>(fn: T, delay: number): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout;
+export function debounce<T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout>;
+
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => fn(...args), delay);
+
+    timeout = setTimeout(() => {
+      fn(...args);
+    }, delay);
   };
 }

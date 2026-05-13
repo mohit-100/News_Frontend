@@ -8,7 +8,7 @@ import { useArticles } from '@/lib/hooks/useNews';
 import { debounce } from '@/lib/utils';
 import { Search, X, Clock, TrendingUp, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { get } from 'node:http';
+
 
 const POPULAR_SEARCHES = ['Climate Summit', 'AI Technology', 'Market Rally', 'Elections', 'Tech Regulations'];
 
@@ -24,11 +24,9 @@ export function SearchBar({ fullPage = false }: { fullPage?: boolean }) {
   const { articles: suggestions } = useArticles({ search: localQuery }, 1, 5);
 
   
-  // const debouncedUpdate = debounce((val: string) => setSearchQuery(val), 300);
+ const debouncedUpdate = debounce((val: string) => setSearchQuery(val), 300);
  
-  const debouncedUpdate = debounce((val) => {
-  setSearchQuery(val as string);
-}, 300);
+  
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
